@@ -45,7 +45,7 @@ def logout_view(request):
 
 # Home View
 # Using the decorator
-@login_required
+# @login_required
 def home_view(request):
     return render(request, 'online_shop_app/home.html')
 
