@@ -1,9 +1,48 @@
 {% extends "online_shop_app/layout.html" %}
 
+{% load static %}
+
 {% block title %}My online shop{% endblock %}
 
 {% block content %}
-    <div class="jumbotron text-center">
-        <p>Hier sollen später verschiedene Produkte in einem Grid Layout dargestellt werden, mit den Korrespondierenden Kategorien auf der linken Seite und wichtigen Informationen unter bzw. neben den Produkten</p>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Sidebar for Categories -->
+            <div class="col-md-3">
+                <div class="category-list">
+                    <h5>Categories</h5>
+                    <ul class="list-group">
+                        <!-- Loop through categories -->
+                        {% for category in categories %}
+                            <li class="list-group-item">{{ category.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content for Products -->
+            <div class="col-md-9">
+                <div class="row">
+                    <!-- Loop through products -->
+                    {% for product in products %}
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card">
+                                <div class="img-container">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    {% else %}
+                                        <img src="{% static 'online_shop_app/default-image.jpg' %}" alt="Default image">
+                                    {% endif %}
+                                </div>
+                                <h5 class="mt-2">{{ product.name }}</h5>
+                                <p>Vendor: {{ product.vendor }}</p>
+                                <p>Price: €{{ product.price }}</p>
+                                <button class="btn btn-primary btn-block">Add to shopping cart</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

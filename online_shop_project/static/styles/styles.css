@@ -1,0 +1,39 @@
+body {
+    background-color: #f8f9fa; /* Light grey background */
+}
+
+.product-card {
+    background-color: #ffffff; /* White background for product cards */
+    border: 1px solid #e0e0e0; /* Light grey border */
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card img {
+    width: 100%; /* Make the image take the full width of the card */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure image covers the area */
+}
+
+.product-card .img-container {
+    height: 200px; /* Set a fixed height for the image container */
+    overflow: hidden; /* Hide overflow */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+.category-list {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}

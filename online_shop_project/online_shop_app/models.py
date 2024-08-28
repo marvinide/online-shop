@@ -15,6 +15,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     vendor = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
 
     def __str__(self):
         return self.name + ' for ' + str(self.price) + ' by ' + self.vendor
