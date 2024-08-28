@@ -20,7 +20,7 @@ body {
 }
 
 .product-card .img-container {
-    height: 200px; /* Set a fixed height for the image container */
+    min-height: 200px; /* Set a minimum height for the image container */
     overflow: hidden; /* Hide overflow */
     margin-bottom: 15px; /* Space below the image */
 }
@@ -36,4 +36,11 @@ body {
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 767px) {
+    .product-card .img-container {
+        min-height: 150px; /* Adjust the minimum height on smaller screens */
+    }
 }
