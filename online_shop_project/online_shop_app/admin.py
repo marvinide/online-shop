@@ -1,13 +1,9 @@
 from django.contrib import admin
-from django.apps import apps
-from django.contrib.admin.sites import AlreadyRegistered
+from .models import Category, Product, ProductCategory, Order, OrderItem, User
 
-# Hole alle Modelle der aktuellen App
-app_models = apps.get_models()
-
-# Versuche, jedes Modell zu registrieren
-for model in app_models:
-    try:
-        admin.site.register(model)
-    except AlreadyRegistered:
-        pass  # Modell wurde bereits registriert, überspringen
+admin.site.register(Category)
+admin.site.register(Product)
+admin.site.register(ProductCategory)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(User)
