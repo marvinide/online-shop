@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from .models import Category, Product, ProductCategory, User
 from .forms import RegisterForm
 from django.http import HttpResponse
@@ -42,7 +43,20 @@ def logout_view(request):
     return render(request, 'accounts/logout.html')
     
 def home_view(request):
-    return redirect('category_view', slug='all')
+    query = request.GET.get('q', '')
+    if query:
+        products = Product.objects.filter(name__icontains=query)
+        selected_category = None
+    else:
+        products = Product.objects.all()
+        selected_category = None
+
+    return render(request, 'online_shop_app/home.html', {
+        'products': products,
+        'categories': Category.objects.all(),
+        'selected_category': selected_category,
+        'search_query': query  # Fügen Sie die Suchabfrage zum Kontext hinzu
+    })
 
 def category_view(request, slug):
     if slug == 'all':
@@ -83,3 +97,24 @@ def add_to_cart_view(request, slug):
     # request.session['cart'] = cart
     
     return redirect('product_detail', slug=slug)
+
+def search_view(request):
+    query = request.GET.get('q', '')
+    if query:
+        products = Product.objects.filter(name__icontains=query)
+    else:
+        products = Product.objects.none()
+    
+    return render(request, 'online_shop_app/home.html', {
+        'products': products,
+        'categories': Category.objects.all(),
+        'selected_category': None,  # No category selected during search
+    })
+
+def product_detail_view(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    query = request.GET.get('q', '')
+    return render(request, 'online_shop_app/product_detail.html', {
+        'product': product,
+        'search_query': query
+    })

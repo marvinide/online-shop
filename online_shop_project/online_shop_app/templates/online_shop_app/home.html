@@ -21,8 +21,8 @@
                             <!-- Loop through categories -->
                             {% for category in categories %}
                                 <li class="list-group-item category-item {% if selected_category == category %}active{% endif %}">
-                                    <!-- Make the entire item clickable by wrapping it in an anchor tag -->
-                                    <a href="{% url 'category_view' slug=category.slug %}" class="category-link">
+                                    <!-- Kategorie-Link aktualisieren, um die Suchanfrage zu entfernen -->
+                                    <a href="{% url 'category_view' slug=category.slug %}?q={{ search_query }}" class="category-link">
                                         {{ category.name }}
                                     </a>
                                 </li>
@@ -34,11 +34,15 @@
 
             <!-- Main Content for Products -->
             <div class="col-md-9">
-                <!-- Show selected category -->
-                {% if selected_category %}
+                <!-- Show search results if there is a search query -->
+                {% if search_query %}
+                    <div class="alert alert-info mb-3">
+                        Search Results for "{{ search_query }}"
+                    </div>
+                {% elif selected_category %}
                     <div class="alert alert-info mb-3">
                         Selected Category: {{ selected_category.name }}
-                        <a href="{% url 'category_view' slug='all' %}" class="close">
+                        <a href="{% url 'category_view' slug='all' %}?q={{ search_query }}" class="close">
                             &times;
                         </a>
                     </div>
@@ -59,7 +63,7 @@
                                 <h5 class="mt-2">{{ product.name }}</h5>
                                 <p>Vendor: {{ product.vendor }}</p>
                                 <p>Price: €{{ product.price }}</p>
-                                <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary btn-block">View Details</a>
+                                <a href="{% url 'product_detail' product.slug %}?q={{ search_query }}" class="btn btn-primary btn-block">View Details</a>
                             </div>
                         </div>
                     {% endfor %}
