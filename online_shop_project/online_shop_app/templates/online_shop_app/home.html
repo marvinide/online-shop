@@ -56,12 +56,10 @@
                                         <img src="{% static 'img/default-image.jpg' %}" class="img-fluid" alt="Default image">
                                     {% endif %}
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="mt-2">{{ product.name }}</h5>
-                                    <p>Vendor: {{ product.vendor }}</p>
-                                    <p>Price: €{{ product.price }}</p>
-                                    <button class="btn btn-primary btn-block">Add to shopping cart</button>
-                                </div>
+                                <h5 class="mt-2">{{ product.name }}</h5>
+                                <p>Vendor: {{ product.vendor }}</p>
+                                <p>Price: €{{ product.price }}</p>
+                                <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary btn-block">View Details</a>
                             </div>
                         </div>
                     {% endfor %}

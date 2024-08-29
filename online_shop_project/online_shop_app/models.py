@@ -19,14 +19,20 @@ class Category(models.Model):
 
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)  # Ensure slug is unique and not blank
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    vendor = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
-    vendor = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)  # Automatically generate slug from the product name
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name + ' for ' + str(self.price) + ' by ' + self.vendor
+        return self.name
 
 class ProductCategory(models.Model):
     product_category_id = models.AutoField(primary_key=True)

@@ -78,6 +78,49 @@ body {
     flex-grow: 1;
 }
 
+/* Flexbox Layout für die Produktdetailseite auf großen Bildschirmen */
+.product-detail .row {
+    display: flex;
+    flex-wrap: nowrap; /* Verhindert Umbrüche auf großen Bildschirmen */
+}
+
+.product-detail .col-md-6 {
+    flex: 1; /* Flexibler Platz für die Spalten */
+}
+
+.product-detail .img-container {
+    max-height: 400px; /* Maximale Höhe für das Bild */
+    margin-bottom: 30px; /* Abstand zum nächsten Inhalt */
+}
+
+/* Sicherstellen, dass das Bild sich an den Container anpasst */
+.product-detail img {
+    width: 100%; /* Bild soll den gesamten Container ausfüllen */
+    height: auto; /* Höhe soll automatisch angepasst werden */
+    object-fit: cover; /* Bild soll den Bereich abdecken */
+}
+
+/* Abstand für den Add to Cart Button */
+.product-detail .btn {
+    margin-top: 30px; /* Abstand vom oberen Element */
+}
+
+/* Formular Padding */
+.product-detail form {
+    margin-bottom: 50px; /* Zusätzlicher Abstand am unteren Rand des Formulars */
+}
+
+/* Sicherstellen, dass das Layout auf kleinen Bildschirmen korrekt ist */
+@media (max-width: 767px) {
+    .product-detail .row {
+        flex-direction: column; /* Auf kleinen Bildschirmen untereinander */
+    }
+
+    .product-detail .col-md-6 {
+        width: 100%; /* Volle Breite auf kleinen Bildschirmen */
+        margin-bottom: 20px; /* Abstand zwischen den Spalten */
+    }
+}
 
 .category-list {
     background-color: #ffffff;

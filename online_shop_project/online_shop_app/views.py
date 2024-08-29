@@ -1,10 +1,9 @@
-# views.py
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import Category, Product, ProductCategory, User
 from .forms import RegisterForm
+from django.http import HttpResponse
 
 def register_view(request):
     if request.method == "POST":
@@ -66,3 +65,21 @@ def category_view(request, slug):
 
 def redirect_to_all_categories(request):
     return redirect('category_view', slug='all')
+
+def product_detail_view(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    return render(request, 'online_shop_app/product_detail.html', {'product': product})
+
+def add_to_cart_view(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    quantity = int(request.POST.get('quantity', 1))
+    
+    # Logik zum Hinzufügen zum Warenkorb (hier nur ein Beispiel)
+    # cart = request.session.get('cart', {})
+    # if product.id in cart:
+    #     cart[product.id] += quantity
+    # else:
+    #     cart[product.id] = quantity
+    # request.session['cart'] = cart
+    
+    return redirect('product_detail', slug=slug)
