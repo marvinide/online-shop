@@ -1,9 +1,9 @@
 # views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Category, Product, User
+from .models import Category, Product, ProductCategory, User
 from .forms import RegisterForm
 
 def register_view(request):
@@ -43,6 +43,26 @@ def logout_view(request):
     return render(request, 'accounts/logout.html')
     
 def home_view(request):
-    products = Product.objects.all()
+    return redirect('category_view', slug='all')
+
+def category_view(request, slug):
+    if slug == 'all':
+        # Wenn der Slug 'all' ist, zeige alle Produkte
+        products = Product.objects.all()
+        selected_category = None
+    else:
+        # Wenn der Slug eine gültige Kategorie ist, zeige Produkte der ausgewählten Kategorie
+        category = get_object_or_404(Category, slug=slug)
+        product_categories = ProductCategory.objects.filter(category=category)
+        products = [pc.product for pc in product_categories]
+        selected_category = category
+
     categories = Category.objects.all()
-    return render(request, 'online_shop_app/home.html', {'products': products, 'categories': categories})
+    return render(request, 'online_shop_app/home.html', {
+        'products': products,
+        'categories': categories,
+        'selected_category': selected_category  # Track the selected category
+    })
+
+def redirect_to_all_categories(request):
+    return redirect('category_view', slug='all')

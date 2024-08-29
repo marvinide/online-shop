@@ -10,18 +10,40 @@
             <!-- Sidebar for Categories -->
             <div class="col-md-3">
                 <div class="category-list">
-                    <h5>Categories</h5>
-                    <ul class="list-group">
-                        <!-- Loop through categories -->
-                        {% for category in categories %}
-                            <li class="list-group-item category-item">{{ category.name }}</li>
-                        {% endfor %}
-                    </ul>
+                    <!-- Button to toggle the categories list on small screens -->
+                    <button class="btn btn-info d-md-none w-100 mb-2" type="button" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="false" aria-controls="categoryCollapse">
+                        Categories
+                    </button>
+                    <!-- Header for categories, hidden on small screens -->
+                    <h5 class="d-none d-md-block">Categories</h5>
+                    <div class="collapse d-md-block" id="categoryCollapse">
+                        <ul class="list-group">
+                            <!-- Loop through categories -->
+                            {% for category in categories %}
+                                <li class="list-group-item category-item {% if selected_category == category %}active{% endif %}">
+                                    <!-- Make the entire item clickable by wrapping it in an anchor tag -->
+                                    <a href="{% url 'category_view' slug=category.slug %}" class="category-link">
+                                        {{ category.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <!-- Main Content for Products -->
             <div class="col-md-9">
+                <!-- Show selected category -->
+                {% if selected_category %}
+                    <div class="alert alert-info mb-3">
+                        Selected Category: {{ selected_category.name }}
+                        <a href="{% url 'category_view' slug='all' %}" class="close">
+                            &times;
+                        </a>
+                    </div>
+                {% endif %}
+
                 <div class="row">
                     <!-- Loop through products -->
                     {% for product in products %}
@@ -29,15 +51,17 @@
                             <div class="product-card">
                                 <div class="img-container">
                                     {% if product.image %}
-                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                        <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
                                     {% else %}
-                                        <img src="{% static 'online_shop_app/default-image.jpg' %}" alt="Default image">
+                                        <img src="{% static 'img/default-image.jpg' %}" class="img-fluid" alt="Default image">
                                     {% endif %}
                                 </div>
-                                <h5 class="mt-2">{{ product.name }}</h5>
-                                <p>Vendor: {{ product.vendor }}</p>
-                                <p>Price: €{{ product.price }}</p>
-                                <button class="btn btn-primary btn-block">Add to shopping cart</button>
+                                <div class="card-body">
+                                    <h5 class="mt-2">{{ product.name }}</h5>
+                                    <p>Vendor: {{ product.vendor }}</p>
+                                    <p>Price: €{{ product.price }}</p>
+                                    <button class="btn btn-primary btn-block">Add to shopping cart</button>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}

@@ -2,6 +2,50 @@ body {
     background-color: #f8f9fa; /* Light grey background */
 }
 
+/* Navbar Styling */
+.navbar {
+    background-color: #ffffff; /* Weißer Hintergrund für die Navbar */
+    border-bottom: 1px solid #e0e0e0; /* Dünner Rand unten für Abhebung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schatten für zusätzliche Tiefe */
+    padding: 15px; /* Etwas Padding für Abstand */
+    margin-bottom: 30px; /* Abstand zum Inhalt darunter */
+    position: fixed; /* Fixiere die Navbar oben */
+    width: 100%; /* Volle Breite */
+    top: 0; /* Oben am Bildschirmrand */
+    left: 0; /* Links am Bildschirmrand */
+    z-index: 1000; /* Stelle sicher, dass die Navbar über anderem Inhalt liegt */
+}
+
+/* Toggler Button Styling */
+.navbar-toggler {
+    border: none; /* Entfernt den Standardrahmen des Togglers */
+    padding: 0.25rem 0.75rem; /* Padding anpassen, falls nötig */
+    border-radius: 0.25rem; /* Abrundung der Ecken */
+    background: none; /* Entfernt Hintergrundfarbe */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,0,0,.5)' stroke-width='2' d='M5 7h20M5 15h20M5 23h20'/%3e%3c/svg%3e"); /* Standard Icon */
+}
+
+/* Navbar Brand Styling */
+.navbar-brand {
+    font-size: 1.5rem; /* Größerer Text für den Brand-Name */
+    font-weight: bold; /* Fett für den Brand-Name */
+}
+
+/* Navbar Link Styling */
+.navbar-nav .nav-item .nav-link {
+    color: #007bff; /* Farbige Links in der Navbar */
+    text-decoration: none; /* Entferne die Unterstreichung von Links */
+}
+
+/* Container Styling */
+.container {
+    margin-top: 70px; /* Abstand für die fixierte Navbar */
+}
+
+/* Ensure product cards take the full height of their container */
 .product-card {
     background-color: #ffffff; /* White background for product cards */
     border: 1px solid #e0e0e0; /* Light grey border */
@@ -10,20 +54,30 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow */
     display: flex;
     flex-direction: column;
-    height: 100%;
-}
-
-.product-card img {
-    width: 100%; /* Make the image take the full width of the card */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure image covers the area */
+    height: 100%; /* Ensure the card takes the full height of its container */
+    overflow: hidden; /* Hide any overflow from content */
 }
 
 .product-card .img-container {
     min-height: 200px; /* Set a minimum height for the image container */
+    max-height: 200px; /* Ensure image container does not exceed 200px height */
     overflow: hidden; /* Hide overflow */
     margin-bottom: 15px; /* Space below the image */
 }
+
+.product-card img {
+    width: 100%; /* Make the image take the full width of the card */
+    height: 100%; /* Ensure image takes the full height of the container */
+    object-fit: cover; /* Ensure image covers the area */
+}
+
+/* Ensure the card content (name, vendor, price, button) stays at the bottom */
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 
 .category-list {
     background-color: #ffffff;
@@ -32,6 +86,31 @@ body {
     padding: 15px;
     margin-bottom: 30px;
 }
+
+.category-item {
+    padding: 0; /* Remove padding from the list item itself */
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
+
+.category-link {
+    display: block; /* Make the link block-level to fill the entire list item */
+    width: 100%; /* Ensure the link covers the full width of the item */
+    padding: 10px; /* Add padding here to ensure clickable area */
+    text-decoration: none; /* Remove the underline from the links */
+    color: #000; /* Black text color */
+}
+
+.category-link:hover {
+    background-color: #f0f0f0; /* Light grey background on hover */
+    color: #007bff; /* Change text color on hover to match the theme */
+    border-radius: 5px; /* Optional: to match the rounded corners */
+    text-decoration: none;
+}
+
+.btn-info {
+    width: 100%; /* Vollständige Breite für den Collapse-Button auf kleinen Bildschirmen */
+}
+
 
 .btn-primary {
     background-color: #007bff;
@@ -43,4 +122,19 @@ body {
     .product-card .img-container {
         min-height: 150px; /* Adjust the minimum height on smaller screens */
     }
+}
+
+.alert-info {
+    background-color: #e0f7fa;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.close {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 20px;
+    float: right;
 }
